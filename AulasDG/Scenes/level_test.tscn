@@ -1,0 +1,80 @@
+[gd_scene load_steps=10 format=3 uid="uid://djmpjrer3pq7c"]
+
+[ext_resource type="Texture2D" uid="uid://ba47p731mhdet" path="res://assets/GrassFloor.png" id="1_5tqjd"]
+[ext_resource type="Script" path="res://Scenes/Player.gd" id="2_g6ikq"]
+[ext_resource type="Texture2D" uid="uid://csnyylhsj86tx" path="res://assets/Car.png" id="2_yamfl"]
+[ext_resource type="Texture2D" uid="uid://dixmlbt2rg5ha" path="res://assets/Soccerball.png" id="3_epeix"]
+[ext_resource type="Script" path="res://Scenes/Ball.gd" id="4_3m8dg"]
+[ext_resource type="Script" path="res://Scenes/goal.gd" id="6_qfwpd"]
+[ext_resource type="Texture2D" uid="uid://bhkcy8lxje207" path="res://assets/Goal.png" id="7_n1r1s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_plihx"]
+size = Vector2(1161, 33)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_msqxk"]
+radius = 50.0
+
+[node name="LevelTest" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+texture_repeat = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(575, 632)
+shape = SubResource("RectangleShape2D_plihx")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture_repeat = 2
+position = Vector2(575.5, 630.5)
+scale = Vector2(2.334, 0.102941)
+texture = ExtResource("1_5tqjd")
+region_enabled = true
+region_rect = Rect2(0, 130, 500, 340)
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_g6ikq")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="CharacterBody2D"]
+polygon = PackedVector2Array(100, 100, 200, 100, 200, 70, 180, 48, 120, 48, 100, 70)
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+position = Vector2(150, 77)
+scale = Vector2(0.544444, 0.527778)
+texture = ExtResource("2_yamfl")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+script = ExtResource("4_3m8dg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2(333, 97)
+shape = SubResource("CircleShape2D_msqxk")
+one_way_collision_margin = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+position = Vector2(334, 97)
+scale = Vector2(0.0891667, 0.0891667)
+texture = ExtResource("3_epeix")
+
+[node name="Goal" type="Area2D" parent="."]
+script = ExtResource("6_qfwpd")
+
+[node name="Sprite2D" type="Sprite2D" parent="Goal"]
+position = Vector2(41, 578)
+scale = Vector2(0.0144689, 0.0144689)
+texture = ExtResource("7_n1r1s")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Goal"]
+polygon = PackedVector2Array(88, 522, 71, 521, 32, 539, -10, 625, -10, 637, 1, 637, -3, 631, -6, 625, 5, 603, 18, 577, 33, 546, 37, 540, 52, 539, 67, 532)
+
+[node name="Goal2" type="Area2D" parent="."]
+position = Vector2(1149, 105)
+scale = Vector2(-1, 0.833)
+script = ExtResource("6_qfwpd")
+
+[node name="Sprite2D" type="Sprite2D" parent="Goal2"]
+position = Vector2(41, 578)
+scale = Vector2(0.0144689, 0.0144689)
+texture = ExtResource("7_n1r1s")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Goal2"]
+polygon = PackedVector2Array(88, 522, 71, 521, 32, 539, -10, 625, -10, 637, 1, 637, -3, 631, -6, 625, 5, 603, 18, 577, 33, 546, 37, 540, 52, 539, 67, 532)
