@@ -1,0 +1,75 @@
+[gd_scene load_steps=12 format=3 uid="uid://b57hyakfd85ia"]
+
+[ext_resource type="Script" path="res://character_body_3d.gd" id="1_rwc4k"]
+[ext_resource type="Script" path="res://camera_3d.gd" id="2_pui1x"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f72l8"]
+size = Vector3(10, 1, 10)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kkg3"]
+albedo_color = Color(0.378781, 0.60974, 0.0697414, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e8135"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_talbg"]
+albedo_color = Color(0.393469, 0.666663, 0.821989, 1)
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_18pdn"]
+
+[sub_resource type="Sky" id="Sky_fhi5p"]
+sky_material = SubResource("ProceduralSkyMaterial_18pdn")
+process_mode = 3
+
+[sub_resource type="Environment" id="Environment_64fer"]
+background_mode = 2
+background_energy_multiplier = 2.95
+sky = SubResource("Sky_fhi5p")
+ambient_light_color = Color(0.402685, 0.622603, 0.984914, 1)
+ambient_light_energy = 0.95
+reflected_light_source = 2
+ssr_enabled = true
+ssao_enabled = true
+glow_enabled = true
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_sad5u"]
+
+[sub_resource type="Compositor" id="Compositor_m87xm"]
+
+[node name="Level" type="Node3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("BoxShape3D_f72l8")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="StaticBody3D"]
+size = Vector3(10, 1, 10)
+material = SubResource("StandardMaterial3D_0kkg3")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.84176, 0)
+script = ExtResource("1_rwc4k")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("CapsuleShape3D_e8135")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.107131, 0)
+material = SubResource("StandardMaterial3D_talbg")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 0.979131, 0.203232, 0, -0.203232, 0.979131, 0.116891, 1.31242, 2.78584)
+script = ExtResource("2_pui1x")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.357576, -0.909277, 0.212966, 0.465327, 0.371194, 0.803546, -0.809697, -0.18823, 0.555842, 17.1461, 22.8263, -2.06435)
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(0.357576, -0.909277, 0.212966, -0.270801, 0.117291, 0.955463, -0.89376, -0.399322, -0.204293, 0.0853438, 5.79612, -2.20579)
+light_energy = 16.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_64fer")
+camera_attributes = SubResource("CameraAttributesPractical_sad5u")
+compositor = SubResource("Compositor_m87xm")
